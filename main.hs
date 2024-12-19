@@ -33,15 +33,18 @@ parseAtom = do
     "#f" -> Bool False
     _    -> Atom atom
 
--- Exercise 1
-parseNumber :: Parser LispVal
+-- Exercise 1a
+-- parseNumber implementation with do
+parseNumberDo :: Parser LispVal
+parseNumberDo = do
+  numStr <- many1 digit 
+  let numInt = read numStr
+  return $ Number numInt
 
--- parseNumber = do
---   numStr <- many1 digit 
---   let numInt = read numStr
---   return $ Number numInt
-
-parseNumber = many1 digit
+-- Exercise 1b
+-- parseNumber implementation with bind (>>=)
+parseNumberBind :: Parser LispVal
+parseNumberBind = many1 digit
   >>= 
   (\ numStr -> return $ Number $ read numStr)
 
